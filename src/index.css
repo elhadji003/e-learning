@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primaryColor: rgb(79 70 229);
+    --primary-bg: rgb(79 70 229);
+    --secondary-color: white;
+    --tertiary-color-color: black;
+}
