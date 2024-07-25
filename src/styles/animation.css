@@ -12,3 +12,32 @@
     display: flex;
     animation: slider 10s linear infinite;
 }
+
+/* Temoignage.css */
+.testimonial-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.testimonial-grid {
+    display: flex;
+    gap: 20px;
+    animation: marquee 15s linear infinite;
+}
+
+.testimonial-card {
+    min-width: 250px; /* Adjust this to fit your design */
+    max-width: 250px;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+

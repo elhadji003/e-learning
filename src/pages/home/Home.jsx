@@ -1,15 +1,24 @@
 import React, { useEffect } from "react";
-import "../../styles/Home.css"; // Assurez-vous de créer ce fichier CSS
+import 'react-toastify/dist/ReactToastify.css';
+import "../../styles/Home.css";
 import { Link } from "react-router-dom";
 import { FaBook, FaChartLine, FaUsers } from "react-icons/fa";
 import { useGetAllUsersQuery } from "../../features/users/usersAPI";
 import CountUp from 'react-countup';
 import Titre from "../../components/Titre";
 import Tabs from "../../components/Tabs";
+import Card from "../../components/Card";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Temoignage from "../../components/Temoignage";
 
 export default function Home() {
     const { data, error, isLoading } = useGetAllUsersQuery();
     const userCount = data?.length || 0;
+
+    useEffect(() => {
+        AOS.init({ duration: 1000 });
+    }, []);
 
     if (isLoading) {
         return <div>Chargement...</div>;
@@ -19,50 +28,51 @@ export default function Home() {
         return <div>Erreur lors du chargement des utilisateurs.</div>;
     }
 
-
     const tabs = [
         {
-            id: "Troisiéme",
-            label: "Troisiéme",
-            content: (
-                <div>
-                    Cours
-                </div>
-            )
+            id: "Troisieme",
+            label: "Troisieme",
+            content: <Card programType="Troisieme" />
         },
         {
             id: "Seconde",
             label: "Seconde",
-            content: (
-                <div>
-                    Cours seconde
-                </div>
-            )
+            content: <Card programType="Second" />
         },
         {
-            id: "Prémier",
-            label: "Prémier",
-            content: (
-                <div>
-                    Cours Premier
-                </div>
-            )
+            id: "Premier",
+            label: "Premier",
+            content: <Card programType="Premier" />
         },
         {
             id: "Terminal",
             label: "Terminal",
-            content: (
-                <div>
-                    Cours Terminal
-                </div>
-            )
+            content: <Card programType="Terminal" />
         }
-    ]
+    ];
 
     const card = [
         { icon: <FaUsers color="white" />, number: userCount, text: "utilisateurs", cardText: "Nombre d'utilisateurs inscrits sur la plateforme." },
         { icon: <FaChartLine color="white" />, number: 231, text: "projets", cardText: "Projets réalisés par les utilisateurs." },
         { icon: <FaBook color="white" />, number: 1300, text: "Cours", cardText: "Cours disponibles sur la plateforme." }
+    ];
+
+    const testimonials = [
+        {
+            name: "John Doe",
+            text: "Cette plateforme est incroyable ! J'ai beaucoup appris.",
+            photo: "https://via.placeholder.com/150"
+        },
+        {
+            name: "Jane Smith",
+            text: "Les cours sont très bien structurés et faciles à suivre.",
+            photo: "https://via.placeholder.com/150"
+        },
+        {
+            name: "Alice Johnson",
+            text: "J'ai pu améliorer mes compétences grâce à cette plateforme.",
+            photo: "https://via.placeholder.com/150"
+        }
     ];
 
     return (
@@ -81,11 +91,12 @@ export default function Home() {
                 <Link to={"/register"} className="btn-custom">Inscription</Link>
                 <Link to={"/login"} className="btn-custom">Connexion</Link>
             </div>
-            <div className="flex sm:flex-col justify-center items-center gap-2 mt-3">
+            <div className="flex sm:flex-col justify-center items-center gap-4 mt-3">
                 {card.map((item, index) => (
                     <div
                         key={index}
                         className="bg-indigo-600 w-[300px] md:w-[240px] h-60 p-4 rounded-lg transition-custom hover:scale-105 shadow-lg"
+                        data-aos="fade-up"
                     >
                         <div className="flex flex-col gap-3">
                             <span className="w-[50px] h-[50px] border-2 border-white rounded-full flex justify-center items-center">
@@ -102,8 +113,14 @@ export default function Home() {
                     </div>
                 ))}
             </div>
-            <Titre titre={"Les cours"} size={"50px"} />
-            <Tabs tabs={tabs} />
+            <Titre titre={"----Les Programmes----"} size={"50px"} className={"text-center uppercase"} bold={true} />
+            <div data-aos="zoom-in">
+                <Tabs tabs={tabs} />
+            </div>
+            <Titre titre={"----Temoigneur----"} size={"50px"} className={"text-center uppercase"} bold={true} />
+            <div data-aos="fade-in">
+                <Temoignage />
+            </div>
         </div>
     );
 }
