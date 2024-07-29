@@ -55,12 +55,11 @@ const Card = ({ programType }) => {
             { title: "Anglais", number: 48, content: "Langue anglaise", logo: "ANG" },
             { title: "Espagnol", number: 39, content: "Langue espagnol", logo: "ESP" },
             { title: "Arabe", number: 39, content: "Langue Arabe", logo: "Arabe" },
-
         ]
     };
 
     return (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-1  md:grid-cols-2 gap-4">
             {programs[programType].map((program, index) => (
                 <div key={index} className="w-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow border-black">
                     <div className='flex items-center justify-between'>

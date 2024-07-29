@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import "../../styles/Home.css";
 import { Link } from "react-router-dom";
 import { FaBook, FaChartLine, FaUsers } from "react-icons/fa";
 import { useGetAllUsersQuery } from "../../features/users/usersAPI";
@@ -11,10 +11,22 @@ import Card from "../../components/Card";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Temoignage from "../../components/Temoignage";
+import Rejoindre from "../../components/Rejoindre";
+import Footer from "../../components/Footer";
 
 export default function Home() {
     const { data, error, isLoading } = useGetAllUsersQuery();
     const userCount = data?.length || 0;
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleMessageClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    };
 
     useEffect(() => {
         AOS.init({ duration: 1000 });
@@ -57,24 +69,6 @@ export default function Home() {
         { icon: <FaBook color="white" />, number: 1300, text: "Cours", cardText: "Cours disponibles sur la plateforme." }
     ];
 
-    const testimonials = [
-        {
-            name: "John Doe",
-            text: "Cette plateforme est incroyable ! J'ai beaucoup appris.",
-            photo: "https://via.placeholder.com/150"
-        },
-        {
-            name: "Jane Smith",
-            text: "Les cours sont très bien structurés et faciles à suivre.",
-            photo: "https://via.placeholder.com/150"
-        },
-        {
-            name: "Alice Johnson",
-            text: "J'ai pu améliorer mes compétences grâce à cette plateforme.",
-            photo: "https://via.placeholder.com/150"
-        }
-    ];
-
     return (
         <div className="flex flex-col sm:my-5 space-y-4">
             <div className="flex flex-col items-center space-y-2">
@@ -90,6 +84,7 @@ export default function Home() {
             <div className="flex space-x-4 items-center justify-center">
                 <Link to={"/register"} className="btn-custom">Inscription</Link>
                 <Link to={"/login"} className="btn-custom">Connexion</Link>
+                <button onClick={handleMessageClick} className="btn-custom">Message</button>
             </div>
             <div className="flex sm:flex-col justify-center items-center gap-4 mt-3">
                 {card.map((item, index) => (
@@ -117,10 +112,15 @@ export default function Home() {
             <div data-aos="zoom-in">
                 <Tabs tabs={tabs} />
             </div>
-            <Titre titre={"----Temoigneur----"} size={"50px"} className={"text-center uppercase"} bold={true} />
+            <Titre titre={"----Temoigneurs----"} size={"50px"} className={"text-center uppercase"} bold={true} />
             <div data-aos="fade-in">
                 <Temoignage />
             </div>
+            <div>
+                <Rejoindre isOpen={isModalOpen} onModalClose={handleModalClose} />
+            </div>
+            <ToastContainer position="top-center" />
+            <Footer />
         </div>
     );
 }

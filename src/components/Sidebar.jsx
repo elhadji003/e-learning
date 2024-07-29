@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaChartBar, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useGetMeQuery, useLoginMutation } from '../features/auth/authAPI';
+import { useGetMeQuery } from '../features/auth/authAPI';
 
 const Sidebar = ({ isOpen, onClose }) => {
 

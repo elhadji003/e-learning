@@ -9,7 +9,7 @@ const Tabs = ({ tabs }) => {
 
     return (
         <div>
-            <div className="flex sm:flex-col sm:text-nowrap sm:space-x-0 justify-center space-x-12 md:justify-start md:space-x-10 lg:space-x-32 xl:space-x-50 w-fit m-auto shadow-xl">
+            <div className="flex sm:text-sm sm:text-nowrap sm:space-x-0 justify-center space-x-12 md:justify-start md:space-x-10 lg:space-x-32 xl:space-x-50 w-fit m-auto shadow-xl">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
