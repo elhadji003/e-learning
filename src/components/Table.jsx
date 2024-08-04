@@ -1,42 +1,8 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 10px;
-`;
-
-const StyledTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  margin: 0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  th, td {
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-  }
-
-  th {
-    background-color: ${({ bgColor }) => bgColor || "#fff"};
-    padding-top: 3rem;
-    font-size: ${({ size }) => size || ""};
-  }
-
-  tr:hover {
-    background-color: #f1f1f1;
-  }
-`;
-
-// Table Component
 const Table = ({ data = [], columns = [], bgColor, size, color }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6;
+    const itemsPerPage = 5;
 
     // Calcul du nombre total de pages
     const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -53,14 +19,15 @@ const Table = ({ data = [], columns = [], bgColor, size, color }) => {
     };
 
     return (
-        <Container>
-            <StyledTable bgColor={bgColor} size={size} color={color} className="rounded-lg">
-                {/* Table header */}
-                <thead>
-                    <tr>
+        <div className="flex flex-col justify-center items-center p-4">
+            <table className="w-full border-collapse bg-white shadow-lg rounded-lg">
+                <thead className="bg-indigo-600 text-white">
+                    <tr className={`bg-${bgColor} text-${color}`}>
                         {Array.isArray(columns) &&
                             columns.map((column, index) => (
-                                <th key={index}>{column.header}</th>
+                                <th key={index} className={`p-5 border-b ${size}`}>
+                                    {column.header}
+                                </th>
                             ))}
                     </tr>
                 </thead>
@@ -68,16 +35,18 @@ const Table = ({ data = [], columns = [], bgColor, size, color }) => {
                 <tbody>
                     {Array.isArray(currentData) &&
                         currentData.map((row, rowIndex) => (
-                            <tr key={rowIndex}>
+                            <tr key={rowIndex} className="hover:bg-gray-100">
                                 {columns.map((column, colIndex) => (
-                                    <td key={colIndex}>{row[column.accessor]}</td>
+                                    <td key={colIndex} className="p-2 border-b text-center">
+                                        {row[column.accessor]}
+                                    </td>
                                 ))}
                             </tr>
                         ))}
                 </tbody>
-            </StyledTable>
+            </table>
             {/* Pagination numbers */}
-            <div className="flex ms-auto mt-4 gap-3">
+            <div className="flex mt-4 gap-3 ms-auto">
                 {Array.from({ length: totalPages }).map((_, index) => (
                     <div
                         key={index}
@@ -89,7 +58,7 @@ const Table = ({ data = [], columns = [], bgColor, size, color }) => {
                     </div>
                 ))}
             </div>
-        </Container>
+        </div>
     );
 };
 

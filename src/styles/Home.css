@@ -36,3 +36,9 @@
 .transition-custom:hover {
     transform: scale(1.05);
 }
+
+/* CustomCalendar.css */
+.custom-calendar {
+    height: 300px; /* Ajustez la hauteur selon vos besoins */
+    overflow-y: auto; /* Assurez-vous que le contenu ne dépasse pas */
+}

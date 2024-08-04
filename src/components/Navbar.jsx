@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logOut, updateProfileImage } from '../features/auth/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGetMeQuery, useUpdateProfileImageMutation } from '../features/auth/authAPI';
 import { toast } from 'react-toastify';
 import { FaSignOutAlt } from 'react-icons/fa';
@@ -62,15 +62,15 @@ const Navbar = ({ onToggleSidebar }) => {
                     className="text-white focus:outline-none flex items-center"
                 >
                     <span>{user?.username}</span>
-                    <span className="w-8 h-8 ms-3 rounded-full bg-white overflow-hidden">
+                    <span className="w-9 h-9 ms-3 rounded-full bg-white overflow-hidden">
                         <img src={user?.profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
                     </span>
                 </button>
                 {dropdownOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
                         <h4 className='block text-center bg-indigo-600 rounded-t-md text-white uppercase border border-t-xl'>{user?.role}</h4>
-                        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
-                        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Paramtre</a>
+                        <Link to={"/profil"} className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</Link>
+                        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Paramétre</a>
                         <label className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer bg-gray-300">
                             <input
                                 type="file"

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const AllUSers = () => {
+const Troisieme = () => {
     return (
         <div>
-            Crud Users
+            Troisieme
         </div>
     )
 }
 
-export default AllUSers
+export default Troisieme

@@ -23,7 +23,7 @@ const Login = () => {
             dispatch(setCredentials(userData));
             navigate(userData.user.role === 'admin' ? '/dashboard-admin' : '/dashboard-user');
             reset();
-            toast.success("Connecté avec succée")
+            toast.success("Vous étes connecté avec succée")
         } catch (err) {
             toast.error("Verifier vous identifiants")
             console.error('Failed to login:', err);

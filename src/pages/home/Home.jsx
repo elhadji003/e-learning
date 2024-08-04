@@ -119,7 +119,6 @@ export default function Home() {
             <div>
                 <Rejoindre isOpen={isModalOpen} onModalClose={handleModalClose} />
             </div>
-            <ToastContainer position="top-center" />
             <Footer />
         </div>
     );

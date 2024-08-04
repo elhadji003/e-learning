@@ -7,6 +7,8 @@ import {
     REFRESH_TOKEN_ROUTE,
     UPDATE_PROFILE_IMAGE_ROUTE,
     GET_PROFILE_BY_ID_ROUTE,
+    FORGOTPWD_ROUTE,
+    RESETPWD_ROUTE,
 } from '../../routes/api/enpoint';
 
 const baseQuery = fetchBaseQuery({
@@ -64,6 +66,20 @@ export const authAPI = createApi({
                 method: 'GET',
             }),
         }),
+        forgetPassword: builder.mutation({
+            query: (email) => ({
+                url: FORGOTPWD_ROUTE,
+                method: 'POST',
+                body: { email },
+            }),
+        }),
+        resetPassword: builder.mutation({
+            query: ({ token, password }) => ({
+                url: `${RESETPWD_ROUTE}/${token}`,
+                method: 'POST',
+                body: { password },
+            }),
+        }),
     }),
 });
 
@@ -73,5 +89,7 @@ export const {
     useGetMeQuery,
     useRefreshTokenMutation,
     useUpdateProfileImageMutation,
-    useGetProfileByIdQuery
+    useGetProfileByIdQuery,
+    useForgetPasswordMutation,
+    useResetPasswordMutation,
 } = authAPI;
