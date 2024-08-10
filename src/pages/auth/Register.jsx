@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import SubmitBtn from '../../components/SubmitBtn';
 import '../../styles/animation.css';
 import { useRegisterMutation } from '../../features/auth/authAPI';
-import { toast } from 'react-toastify'; // Assurez-vous d'importer toast
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
@@ -59,8 +60,8 @@ const Register = () => {
                                 {...register('role', { required: 'Role is required' })}
                                 className="w-full p-2 border border-gray-300 rounded"
                             >
-                                <option value="user">user</option>
-                                {/* <option value="admin">admin</option> */}
+                                <option value="user">User</option>
+                                <option value="enseignant">Enseignant</option>
                             </select>
                             {errors.role && <p className="text-red-500">{errors.role.message}</p>}
                         </div>
@@ -116,7 +117,7 @@ const Register = () => {
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                             className="absolute inset-y-0 right-0 flex items-center px-2 cursor-pointer"
                         >
-                            {showPassword ? <FaEye /> : <FaEyeSlash />}
+                            {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
                         </span>
                     </div>
                     {errors.confirmPwd && <p className="text-red-500">{errors.confirmPwd.message}</p>}
@@ -134,6 +135,7 @@ const Register = () => {
                     </p>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

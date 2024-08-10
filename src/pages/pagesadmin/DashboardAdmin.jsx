@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaBook, FaEnvelope, FaUserCheck, FaUsers, FaEye, FaEdit, FaTrash } from 'react-icons/fa';
+import { TbMessage2Off } from "react-icons/tb";
 import Chart from '../../components/Chart';
 import Table from '../../components/Table';
 import { useGetAllUsersQuery } from '../../features/users/usersAPI';
+import IconWithDropdown from '../../components/IconWithDropdown';
+import { useGetAllMessagesQuery, useDeleteMessageMutation } from '../../features/contact/contactAPI';
+import Loader from '../../components/Loader';
+import { toast } from 'react-toastify';
+import Message from '../../components/Message';
 
 const DashboardAdmin = () => {
-
     const { data: usersAdmin, isLoading } = useGetAllUsersQuery();
+    const { data: messages, refetch } = useGetAllMessagesQuery();
+    const messageCount = messages?.length || 0
+    const [deleteMessage] = useDeleteMessageMutation();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 2;
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div><Loader /></div>;
     }
 
-    // Filtrer pour récupérer uniquement les administrateurs
+    const totalPages = messages ? Math.ceil(messages.length / itemsPerPage) : 1;
+    const currentData = messages ? messages.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    ) : [];
+
+    const changePage = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
     const adminUsers = usersAdmin?.filter(user => user.role === 'admin') || [];
 
     const users = [
         { text: "Totale Etudiants", count: 11, icon: <FaUsers />, color: 'rgba(75, 192, 192, 0.6)' },
         { text: "Nouveau Etudiant", count: 41, icon: <FaUserCheck />, color: 'rgba(54, 162, 235, 0.6)' },
         { text: "Cours total", count: 51, icon: <FaBook />, color: 'rgba(255, 206, 86, 0.6)' },
-        { text: "Messages", count: 31, icon: <FaEnvelope />, color: 'rgba(153, 102, 255, 0.6)' },
+        { text: "Messages", count: messageCount, icon: <FaEnvelope />, color: 'rgba(153, 102, 255, 0.6)' },
     ];
 
     const chartData = {
@@ -55,12 +75,13 @@ const DashboardAdmin = () => {
         { header: "Actions", accessor: "actions" },
     ];
 
-    // Créer les données du tableau pour les administrateurs
-    const adminData = adminUsers.map((user, index) => ({
+    const adminData = adminUsers.map(user => ({
         id: user.id,
-        profile: <div>
-            <img className={styleProfile} src={user.profileImageUrl} alt="" />
-        </div>,
+        profile: (
+            <div>
+                <img className={styleProfile} src={user.profileImageUrl} alt="" />
+            </div>
+        ),
         firstName: user.username,
         lastName: user.lastName,
         email: user.email,
@@ -81,9 +102,20 @@ const DashboardAdmin = () => {
         ),
     }));
 
+    const handleDeleteMessage = async (messageId) => {
+        try {
+            await deleteMessage(messageId).unwrap();
+            toast.success("Message deleted successfully!");
+            refetch(); // Refetch the messages to get the updated list
+        } catch (error) {
+            toast.error("Failed to delete the message.");
+            console.error("Failed to delete the message:", error);
+        }
+    };
+
     return (
         <div>
-            <div className="flex sm:flex-col gap-3">
+            <div className="flex flex-wrap gap-3 sm:flex-col">
                 {users.map((user, k) => (
                     <div className="flex-1 flex shadow-md" key={k}>
                         <div className="bg-indigo-600 text-white w-10 h-10 flex items-center justify-center m-4 rounded shadow-md">
@@ -96,46 +128,53 @@ const DashboardAdmin = () => {
                     </div>
                 ))}
             </div>
-            <div className="flex gap-3 mt-4 sm:flex-col">
-                <div className="flex-1 shadow-md">
+            <div className="flex sm:flex-col gap-3 mt-4">
+                <div className="flex-1 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 shadow-md">
                     <Chart data={chartData} options={chartOptions} />
                 </div>
-                <div className="flex-1 shadow-md">
-                    <h2 className="text-xl font-bold mb-4 text-center">Notifications</h2>
+                <div className="flex-1 w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 shadow-md">
+                    <h2 className="text-xl font-bold mb-4 text-center">Messages</h2>
                     <ul className="space-y-3 p-3">
-                        <li className="flex items-center justify-between bg-white p-4 shadow-md rounded">
-                            <div>
-                                <p className="font-semibold">Admin 1</p>
-                                <p className="text-sm text-gray-500">Inscrit au cours "Mathématiques Avancées"</p>
-                            </div>
-                            <span className="text-sm text-gray-400">Il y a 2 heures</span>
-                        </li>
-                        <li className="flex items-center justify-between bg-white p-4 shadow-md rounded">
-                            <div>
-                                <p className="font-semibold">Admin 2</p>
-                                <p className="text-sm text-gray-500">A complété le cours "Physique 101"</p>
-                            </div>
-                            <span className="text-sm text-gray-400">Il y a 5 heures</span>
-                        </li>
-                        <li className="flex items-center justify-between bg-white p-4 shadow-md rounded">
-                            <div>
-                                <p className="font-semibold">Admin 3</p>
-                                <p className="text-sm text-gray-500">A envoyé un message</p>
-                            </div>
-                            <span className="text-sm text-gray-400">Il y a 1 jour</span>
-                        </li>
+                        {Array.isArray(currentData) && currentData.length > 0 ? (
+                            currentData.map((message, k) => (
+                                <Message
+                                    key={k}
+                                    message={message}
+                                    onDelete={handleDeleteMessage}
+                                />
+                            ))
+                        ) : (
+                            <li className="p-4 flex flex-col items-center"><TbMessage2Off size={40} />Pas de message</li>
+                        )}
+                        <div className="flex gap-3 justify-end">
+                            {Array.from({ length: totalPages }).map((_, index) => (
+                                <div
+                                    key={index}
+                                    className={`border bg-white shadow-lg w-8 h-8 rounded-full flex items-center justify-center cursor-pointer ${currentPage === index + 1 ? "bg-indigo-600 text-black" : "bg-indigo-600"
+                                        }`}
+                                    onClick={() => changePage(index + 1)}
+                                >
+                                    {index + 1}
+                                </div>
+                            ))}
+                        </div>
                     </ul>
                 </div>
             </div>
-            <div className="mt-4 shadow-md rounded-lg p-4 mb-4">
+            <div className="mt-4 shadow-md rounded-lg p-4 mb-4 sm:hidden">
                 <h2 className="text-xl font-bold mb-4 text-center">Liste des Administrateurs</h2>
                 <Table data={adminData} columns={columns} bgColor="gray-200" />
             </div>
             <div className="shadow-md rounded">
-                <h2 className="text-xl font-bold mb-4 text-center">Les etudiants les plus avancées</h2>
-                <div className="flex">
-                    <div className="flex-1 bg-gray-400">1</div>
-                    <div className="flex-1 bg-gray-500">2</div>
+                <h2 className="text-xl font-bold mb-4 text-center">Les étudiants les plus avancés</h2>
+                <div className="flex sm:flex-col gap-2">
+                    <div className="w-9/12 sm:w-full shadow-md p-4">
+                        Met
+                    </div>
+                    <div className="w-3/12 sm:w-full shadow-md">
+                        <h2 className='text-center text-white font-bold bg-indigo-600 mb-3'>Membres</h2>
+                        <IconWithDropdown />
+                    </div>
                 </div>
             </div>
         </div>

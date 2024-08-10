@@ -10,6 +10,7 @@ import { useGetMeQuery } from '../features/auth/authAPI';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import { FaSmile } from 'react-icons/fa';
+import Loader from '../components/Loader';
 
 const Layout = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -30,7 +31,7 @@ const Layout = () => {
         refetch();
     }, [refetch]);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div><Loader /></div>;
 
     const handleToggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);

@@ -9,7 +9,7 @@ import SubmitBtn from '../../components/SubmitBtn';
 import '../../styles/animation.css';
 import { FaBook, FaRegLightbulb, FaUserCog, FaUserGraduate } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();

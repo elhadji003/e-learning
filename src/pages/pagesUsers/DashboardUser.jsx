@@ -10,7 +10,7 @@ const DashboardUser = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+i
     const handleLogout = () => {
         dispatch(logOut())
         navigate("/")
