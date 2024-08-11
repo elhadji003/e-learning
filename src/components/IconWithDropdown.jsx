@@ -25,7 +25,7 @@ const IconWithDropdown = () => {
             key={index}
             src={admin.profileImageUrl || Profile}
             alt="Souscrit avatar"
-            className={`w-[41px] h-[41px] object-cover rounded-full ${index !== 0 && "-ml-3"}`}
+            className={`w-[41px] h-[41px] object-cover rounded-full ${index !== 0 && "-ml-3"} bg-gray-100`}
           />
         ))}
         <div

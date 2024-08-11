@@ -7,10 +7,8 @@ const Message = ({ message, onDelete }) => {
     const handleReply = () => {
         // Créer un sujet de l'email plus informatif
         const emailSubject = `Re: ${message.subject || 'Aucun Sujet'} - De ${message.fullName} - ${formatRelativeDate(message.sentAt)}`;
-
         // Corps de l'email
         const emailBody = `Bonjour ${message.fullName},\n\nMerci pour votre message. Comment puis-je vous aider ?\n\n`;
-
         // Redirection vers le client de messagerie
         window.location.href = `mailto:${message.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
     };
