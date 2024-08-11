@@ -16,7 +16,7 @@ import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
 
 export default function Home() {
-    const { data, error, isLoading } = useGetAllUsersQuery();
+    const { data, isLoading } = useGetAllUsersQuery();
     const userCount = data?.length || 0;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,10 +35,6 @@ export default function Home() {
 
     if (isLoading) {
         return <div><Loader /></div>;
-    }
-
-    if (error) {
-        return <div>Erreur lors du chargement des utilisateurs.</div>;
     }
 
     const tabs = [
