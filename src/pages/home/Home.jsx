@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import { FaBook, FaChartLine, FaUsers } from "react-icons/fa";
+import { FcDeleteDatabase } from "react-icons/fc";
 import { useGetAllUsersQuery } from "../../features/users/usersAPI";
 import CountUp from 'react-countup';
 import Titre from "../../components/Titre";
@@ -16,7 +17,7 @@ import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
 
 export default function Home() {
-    const { data, isLoading } = useGetAllUsersQuery();
+    const { data, error, isLoading } = useGetAllUsersQuery();
     const userCount = data?.length || 0;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,6 +36,14 @@ export default function Home() {
 
     if (isLoading) {
         return <div><Loader /></div>;
+    }
+
+    if (error) {
+        return <div className="flex flex-col items-center justify-center h-screen">
+            <p className="text-center">Oups une erreur lors du chargement des données.</p>
+            <p><FcDeleteDatabase size={50} />
+            </p>
+        </div>;
     }
 
     const tabs = [
@@ -69,8 +78,8 @@ export default function Home() {
     return (
         <div className="flex flex-col sm:my-5 space-y-4">
             <div className="flex flex-col items-center space-y-2">
-                <p className="text-4xl font-bold text-center sm:text-2xl">Bienvenue sur Sen ~ Learning</p>
-                <p className="text-center">
+                <p className="text-4xl font-bold text-center sm:text-2xl sm:text-nowrap sm:text-sm">Bienvenue sur Sen ~ Learning</p>
+                <p className="text-center sm:text-[10px]">
                     Dans cette plateforme, vous trouverez une multitude de cours et de{" "}
                     <br />
                     ressources pour améliorer vos compétences et vos connaissances. <br />
