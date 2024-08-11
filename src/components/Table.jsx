@@ -50,7 +50,7 @@ const Table = ({ data = [], columns = [], bgColor, size, color }) => {
                 {Array.from({ length: totalPages }).map((_, index) => (
                     <div
                         key={index}
-                        className={`border bg-white shadow-lg w-8 h-8 rounded-full flex items-center justify-center cursor-pointer ${currentPage === index + 1 ? "bg-orange-300 text-black" : ""
+                        className={`border bg-white shadow-lg w-8 h-8 rounded-full flex items-center justify-center cursor-pointer ${currentPage === index + 1 ? "bg-indigo-200 text-white" : ""
                             }`}
                         onClick={() => changePage(index + 1)}
                     >

@@ -13,6 +13,7 @@ import "aos/dist/aos.css";
 import Temoignage from "../../components/Temoignage";
 import Rejoindre from "../../components/Rejoindre";
 import Footer from "../../components/Footer";
+import Loader from "../../components/Loader";
 
 export default function Home() {
     const { data, error, isLoading } = useGetAllUsersQuery();
@@ -33,7 +34,7 @@ export default function Home() {
     }, []);
 
     if (isLoading) {
-        return <div>Chargement...</div>;
+        return <div><Loader /></div>;
     }
 
     if (error) {
@@ -112,7 +113,7 @@ export default function Home() {
             <div data-aos="zoom-in">
                 <Tabs tabs={tabs} />
             </div>
-            <Titre titre={"----Temoigneurs----"} size={"50px"} className={"text-center uppercase"} bold={true} />
+            <Titre titre={"----Découvrez pourquoi les utilisateurs nous font confiance----"} size={"50px"} className={"text-center uppercase"} bold={true} />
             <div data-aos="fade-in">
                 <Temoignage />
             </div>

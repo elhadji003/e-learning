@@ -9,6 +9,7 @@ import { useGetAllMessagesQuery, useDeleteMessageMutation } from '../../features
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import Message from '../../components/Message';
+import Progression from '../../components/Progression';
 
 const DashboardAdmin = () => {
     const { data: usersAdmin, isLoading } = useGetAllUsersQuery();
@@ -36,9 +37,9 @@ const DashboardAdmin = () => {
     const adminUsers = usersAdmin?.filter(user => user.role === 'admin') || [];
 
     const users = [
-        { text: "Totale Etudiants", count: 11, icon: <FaUsers />, color: 'rgba(75, 192, 192, 0.6)' },
-        { text: "Nouveau Etudiant", count: 41, icon: <FaUserCheck />, color: 'rgba(54, 162, 235, 0.6)' },
-        { text: "Cours total", count: 51, icon: <FaBook />, color: 'rgba(255, 206, 86, 0.6)' },
+        { text: "Etudiants", count: 11, icon: <FaUsers />, color: 'rgba(75, 192, 192, 0.6)' },
+        { text: "Etudiant", count: 41, icon: <FaUserCheck />, color: 'rgba(54, 162, 235, 0.6)' },
+        { text: "Cours", count: 51, icon: <FaBook />, color: 'rgba(255, 206, 86, 0.6)' },
         { text: "Messages", count: messageCount, icon: <FaEnvelope />, color: 'rgba(153, 102, 255, 0.6)' },
     ];
 
@@ -46,7 +47,7 @@ const DashboardAdmin = () => {
         labels: users.map(user => user.text),
         datasets: [
             {
-                label: 'Count',
+                label: 'Compteur',
                 data: users.map(user => user.count),
                 backgroundColor: users.map(user => user.color),
                 borderColor: users.map(user => user.color.replace('0.6', '1')),
@@ -129,7 +130,7 @@ const DashboardAdmin = () => {
                 ))}
             </div>
             <div className="flex sm:flex-col gap-3 mt-4">
-                <div className="flex-1 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 shadow-md">
+                <div className="flex-1 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 shadow-md h-fit">
                     <Chart data={chartData} options={chartOptions} />
                 </div>
                 <div className="flex-1 w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 shadow-md">
@@ -150,7 +151,7 @@ const DashboardAdmin = () => {
                             {Array.from({ length: totalPages }).map((_, index) => (
                                 <div
                                     key={index}
-                                    className={`border bg-white shadow-lg w-8 h-8 rounded-full flex items-center justify-center cursor-pointer ${currentPage === index + 1 ? "bg-indigo-600 text-black" : "bg-indigo-600"
+                                    className={`border bg-white shadow-lg w-8 h-8 rounded-full flex items-center justify-center cursor-pointer ${currentPage === index + 1 ? "bg-indigo-200 text-white" : ""
                                         }`}
                                     onClick={() => changePage(index + 1)}
                                 >
@@ -163,15 +164,15 @@ const DashboardAdmin = () => {
             </div>
             <div className="mt-4 shadow-md rounded-lg p-4 mb-4 sm:hidden">
                 <h2 className="text-xl font-bold mb-4 text-center">Liste des Administrateurs</h2>
-                <Table data={adminData} columns={columns} bgColor="gray-200" />
+                <Table data={adminData} columns={columns} />
             </div>
             <div className="shadow-md rounded">
-                <h2 className="text-xl font-bold mb-4 text-center">Les étudiants les plus avancés</h2>
                 <div className="flex sm:flex-col gap-2">
                     <div className="w-9/12 sm:w-full shadow-md p-4">
-                        Met
+                        <h2 className="text-xl font-bold mb-4 text-center">Progressions des Etudiants</h2>
+                        <Progression />
                     </div>
-                    <div className="w-3/12 sm:w-full shadow-md">
+                    <div className="w-3/12 sm:w-full shadow-md h-fit">
                         <h2 className='text-center text-white font-bold bg-indigo-600 mb-3'>Membres</h2>
                         <IconWithDropdown />
                     </div>

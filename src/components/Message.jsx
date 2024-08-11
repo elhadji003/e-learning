@@ -16,12 +16,12 @@ const Message = ({ message, onDelete }) => {
     };
 
     return (
-        <li className="flex items-center justify-between bg-white p-4 shadow-md rounded sm:flex-col sm:ms-auto">
+        <li className="flex items-center justify-between bg-white p-4 shadow-md rounded sm:flex-col sm:ms-auto md:flex-col">
             <div>
                 <p className="font-semibold my-1">{message.fullName}</p>
                 <p className="text-sm text-gray-500 w-64">{message.message}</p>
             </div>
-            <div className="flex flex-col sm:ms-auto">
+            <div className="flex flex-col sm:ms-auto md:ms-auto">
                 <div className='flex items-center space-x-4'>
                     <span className="text-sm text-gray-400">{formatRelativeDate(message.sentAt)}</span>
                     <button
@@ -32,7 +32,7 @@ const Message = ({ message, onDelete }) => {
                     </button>
                 </div>
                 <button
-                    className="mt-2 text-blue-500 hover:text-blue-700 flex items-center gap-3"
+                    className="mt-2 text-blue-500 hover:text-blue-700 flex items-center gap-3 justify-end"
                     onClick={handleReply}
                 >
                     Répondre <IoArrowUndoOutline size={20} />

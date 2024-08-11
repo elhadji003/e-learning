@@ -27,10 +27,10 @@
     animation: marquee 15s linear infinite;
 }
 
-.testimonial-card {
-    min-width: 250px; /* Adjust this to fit your design */
+/* .testimonial-card {
+    min-width: 250px;
     max-width: 250px;
-}
+} */
 
 @keyframes marquee {
     0% {
