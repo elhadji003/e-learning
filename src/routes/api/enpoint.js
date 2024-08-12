@@ -1,6 +1,6 @@
-export const API_URL = "https://e-learningapi.onrender.com";
-export const API_URL_PWD = "https://e-learningapi.onrender.com/password";
-export const API_STORAGE = "https://e-learningapi.onrender.com/storage"
+export const API_URL = "https://e-learningapi.onrender.com/api";
+export const API_URL_PWD = "https://e-learningapi.onrender.com/api/password";
+export const API_STORAGE = "https://e-learningapi.onrender.com/api/storage"
 
 export const LOGIN_ROUTE = `${API_URL}/login`;
 export const REGISTER_ROUTE = `${API_URL}/register`;
