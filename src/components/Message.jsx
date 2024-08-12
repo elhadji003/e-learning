@@ -15,7 +15,7 @@ const Message = ({ message, onDelete }) => {
 
     return (
         <li className="flex items-center justify-between bg-white p-4 shadow-md rounded sm:flex-col sm:ms-auto md:flex-col">
-            <div>
+            <div className='sm:mb-3'>
                 <p className="font-semibold my-1">{message.fullName}</p>
                 <p className="text-sm text-gray-500 w-64">{message.message}</p>
             </div>

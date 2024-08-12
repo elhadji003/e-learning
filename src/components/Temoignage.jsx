@@ -29,9 +29,9 @@ const Temoignage = () => {
 
     return (
         <div className="testimonial-container">
-            <div className="testimonial-grid">
+            <div className="testimonial-grid flex-nowrap">
                 {testimonials.map((testimonial, index) => (
-                    <div key={index} className="w-96 p-4 bg-white shadow-lg rounded-lg flex flex-col items-center">
+                    <div key={index} className="w-96 p-4 bg-white shadow-lg rounded-lg flex flex-col items-center sm:min-w-full">
                         <img src={testimonial.photo} alt={`${testimonial.name}'s photo`} className="w-16 h-16 rounded-full mb-4" />
                         <p className="text-gray-700 italic">"{testimonial.text}"</p>
                         <h3 className="text-indigo-600 mt-4 font-bold">{testimonial.name}</h3>

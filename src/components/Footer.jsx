@@ -9,7 +9,7 @@ const Footer = () => {
     }
     return (
         <footer className="w-full bg-gray-800 text-white p-4">
-            <div className="container mx-auto flex items-center md:flex-row items-center justify-between">
+            <div className="container mx-auto flex items-center md:flex-row items-center justify-between sm:flex-col">
                 <div className="text-center md:text-left mb-2 md:mb-0">
                     <h2 className="text-lg font-bold mb-2 underline">À propos de Sen-learning</h2>
                     <ul className="text-sm list-disc list-inside">

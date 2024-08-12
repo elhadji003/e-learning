@@ -10,7 +10,7 @@
 
 .animate-slider {
     display: flex;
-    animation: slider 10s linear infinite;
+    animation: slider 20s linear infinite;
 }
 
 /* Temoignage.css */
@@ -27,10 +27,12 @@
     animation: marquee 15s linear infinite;
 }
 
-/* .testimonial-card {
-    min-width: 250px;
-    max-width: 250px;
-} */
+/* Ajustement pour petits écrans */
+@media screen and (min-width: 320px) {
+    .testimonial-grid {
+        animation: marquee-sm 30s linear infinite; /* Réduire la vitesse pour les petits écrans */
+    }
+}
 
 @keyframes marquee {
     0% {
@@ -38,6 +40,15 @@
     }
     100% {
         transform: translateX(-100%);
+    }
+}
+
+@keyframes marquee-sm {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-400%);
     }
 }
 
@@ -50,9 +61,8 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
-  
-  .custom-toast-enter {
-    animation: custom-fade-in 0.1s ease-out;
-  }
-  
+}
+
+.custom-toast-enter {
+    animation: custom-fade-in 5s ease-out;
+}

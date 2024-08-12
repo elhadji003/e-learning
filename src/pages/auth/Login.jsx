@@ -32,10 +32,10 @@ const Login = () => {
 
     return (
         <div className="flex sm:flex-col">
-            <div className="w-1/2 sm:w-full h-screen sm:h-[200px] bg-indigo-600 text-white flex flex-col gap-4 items-center justify-center overflow-hidden relativev sm:rounded-b-xl sm:shadow-xl">
-                <h1 className="text-4xl font-extrabold text-center sm:text-2xl">Bienvenue sur SEN ~ LEARNING</h1>
+            <div className="w-1/2 sm:w-full h-screen sm:h-[130px] bg-indigo-600 text-white flex flex-col gap-4 items-center justify-center overflow-hidden relativev sm:rounded-b-xl sm:shadow-xl">
+                <h1 className="text-4xl font-extrabold text-center sm:text-[18px]">Bienvenue sur SEN ~ LEARNING</h1>
                 <div className="flex flex-wrap">
-                    <div className="flex items-center gap-3 animate-slider">
+                    <div className="flex items-center gap-3">
                         <FaBook size={35} />
                         <FaUserGraduate size={35} />
                         <FaRegLightbulb size={35} />
@@ -67,7 +67,7 @@ const Login = () => {
                         {isLoading ? 'chargement...' : 'Connecter'}
                     </SubmitBtn>
                 </form>
-                <div className="mt-4 text-center">
+                <div className="mt-4 text-center sm:text-nowrap sm:scale-[0.9]">
                     <p>
                         Si vous n'avez pas de compte, <a href="/register" className="font-bold hover:underline">inscrivez-vous ici</a>.
                     </p>

@@ -78,7 +78,7 @@ export default function Home() {
     return (
         <div className="flex flex-col sm:my-5 space-y-4">
             <div className="flex flex-col items-center space-y-2">
-                <p className="text-4xl font-bold text-center sm:text-2xl sm:text-nowrap sm:text-sm">Bienvenue sur Sen ~ Learning</p>
+                <p className="text-4xl font-bold text-center sm:text-2xl sm:text-nowrap sm:text-[20px]">Bienvenue sur Sen ~ Learning</p>
                 <p className="text-center sm:text-[10px]">
                     Dans cette plateforme, vous trouverez une multitude de cours et de{" "}
                     <br />

@@ -5,7 +5,7 @@ import '../../styles/animation.css';
 import { useRegisterMutation } from '../../features/auth/authAPI';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaBook, FaEye, FaEyeSlash, FaRegLightbulb, FaUserCog, FaUserGraduate } from 'react-icons/fa';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -24,12 +24,19 @@ const Register = () => {
     };
 
     return (
-        <div className="flex sm:flex-col h-screen sm:h-auto">
-            <div className="w-full sm:w-2/2 h-screen sm:h-[200px] sm:text-center bg-indigo-600 text-white flex flex-col gap-4 items-center justify-center overflow-hidden relative sm:rounded-b-xl sm:shadow-xl">
-                <h1 className="text-4xl font-extrabold">Bienvenue sur SEN ~ LEARNING</h1>
+        <div className="flex sm:flex-col">
+            <div className="w-1/2 sm:w-full h-screen sm:h-[130px] bg-indigo-600 text-white flex flex-col gap-4 items-center justify-center overflow-hidden relativev sm:rounded-b-xl sm:shadow-xl">
+                <h1 className="text-4xl font-extrabold text-center sm:text-[18px]">Bienvenue sur SEN ~ LEARNING</h1>
+                <div className="flex flex-wrap">
+                    <div className="flex items-center gap-3">
+                        <FaBook size={35} />
+                        <FaUserGraduate size={35} />
+                        <FaRegLightbulb size={35} />
+                        <FaUserCog size={35} />
+                    </div>
+                </div>
             </div>
-
-            <div className="w-full sm:w-2/2 flex flex-col justify-center items-center p-8">
+            <div className="w-1/2 sm:w-full flex flex-col justify-center items-center p-8">
                 <h1 className='mb-8 font-extrabold text-3xl'>Inscription</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
                     <div className="flex gap-4 sm:flex-col">
@@ -126,13 +133,14 @@ const Register = () => {
                         {isLoading ? 'Chargement...' : 'S\'inscrire'}
                     </SubmitBtn>
                 </form>
-                <div className="mt-4 text-center">
+                <div className="mt-4 text-center sm:text-nowrap sm:scale-[0.8]">
                     <p>
                         Vous avez déjà un compte? <a href="/login" className="font-bold hover:underline">Connectez-vous ici</a>.
                     </p>
-                    <p>
-                        Mot de passe oublié? <a href="/forgot-password" className="font-bold hover:underline">Cliquez-ici</a>.
+                    <p className='underline text-sm'>
+                        En vous inscrivant, vous acceptez nos politiques d'actions.
                     </p>
+
                 </div>
             </div>
             <ToastContainer />
