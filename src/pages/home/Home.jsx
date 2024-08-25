@@ -40,7 +40,7 @@ export default function Home() {
 
     if (error) {
         return <div className="flex flex-col items-center justify-center h-screen">
-            <p className="text-center">Oups une erreur lors du chargement des données.</p>
+            <p className="text-center">Oups une erreur a été rencontrée lors du chargement des données.</p>
             <p><FcDeleteDatabase size={50} />
             </p>
         </div>;

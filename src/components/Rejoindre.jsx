@@ -7,6 +7,7 @@ const Rejoindre = ({ isOpen, onModalClose }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [createMessage] = useCreateMessageMutation();
     const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleModalClose = () => {
         onModalClose();
@@ -16,12 +17,12 @@ const Rejoindre = ({ isOpen, onModalClose }) => {
         try {
             await createMessage(data).unwrap();
             reset();
-            setSuccessMessage("Message sent successfully!"); // Set success message
-            setTimeout(() => setSuccessMessage(''), 3000); // Clear message after 3 seconds
-            // handleModalClose(); // Optionally close the modal on success
+            setSuccessMessage("Message sent successfully!");
+            setTimeout(() => setSuccessMessage(''), 3000);
+            setTimeout(() => handleModalClose(''), 3000);
         } catch (error) {
             console.error("Failed to send message: ", error);
-            setSuccessMessage("Failed to send message."); // Optionally show error message
+            setErrorMessage("Failed to send message.");
         }
     };
 
@@ -75,12 +76,13 @@ const Rejoindre = ({ isOpen, onModalClose }) => {
                                 {errors.message && <p className="text-red-600">{errors.message.message}</p>}
                             </div>
                             <div className="text-sm font-medium text-gray-500">
-                                <SubmitBtn>Envoyer</SubmitBtn>
+                                <SubmitBtn children={"Envoyer"} className={"w-full"} />
                             </div>
                             <div className="text-center">
                                 <span className="underline font-bold">NB:</span>{" "}
                                 <span>Vos données sont strictement confidentielles et utilisées uniquement dans le cadre de votre demande.</span>
                                 {successMessage && <p className="bg-green-500 rounded text-green-700">{successMessage}</p>}
+                                {errorMessage && <p className="bg-red-500 rounded text-red-700">{errorMessage}</p>}
                             </div>
                         </form>
                     </div>

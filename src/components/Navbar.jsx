@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useGetMeQuery, useUpdateProfileImageMutation } from '../features/auth/authAPI';
 import { toast } from 'react-toastify';
 import { FaBell, FaSignOutAlt } from 'react-icons/fa';
+import Profile from "../assets/user.png"
 
 const Navbar = ({ onToggleSidebar }) => {
     const { data: user, isLoading } = useGetMeQuery();
@@ -66,7 +67,7 @@ const Navbar = ({ onToggleSidebar }) => {
                     >
                         <span>{user?.username}</span>
                         <span className="w-9 h-9 ms-3 rounded-full bg-white overflow-hidden">
-                            <img src={user?.profileImageUrl} alt="Profile" className="w-full h-full object-cover" />
+                            <img src={user?.profileImageUrl || Profile} alt="Profile" className="w-full h-full object-cover" />
                         </span>
                     </button>
                     {dropdownOpen && (

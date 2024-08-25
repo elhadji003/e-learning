@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FaBook, FaEnvelope, FaUserCheck, FaUsers, FaEye, FaEdit, FaTrash } from 'react-icons/fa';
-import Profile from "../../assets/user.png"
 import { TbMessage2Off } from "react-icons/tb";
 import Chart from '../../components/Chart';
 import Table from '../../components/Table';
@@ -15,7 +14,10 @@ import Progression from '../../components/Progression';
 const DashboardAdmin = () => {
     const { data: usersAdmin, isLoading } = useGetAllUsersQuery();
     const { data: messages, refetch } = useGetAllMessagesQuery();
-    const messageCount = messages?.length || 0;
+    const messageCount = messages?.length ? messages.length.toString().padStart(2, '0') : "00";
+    if (messageCount === 0) {
+        return "0"
+    }
     const [deleteMessage] = useDeleteMessageMutation();
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -107,10 +109,10 @@ const DashboardAdmin = () => {
     const handleDeleteMessage = async (messageId) => {
         try {
             await deleteMessage(messageId).unwrap();
-            toast.success("Message deleted successfully!");
-            refetch(); // Refetch the messages to get the updated list
+            toast.success("Le Message a été supprimé avec succée!");
+            refetch();
         } catch (error) {
-            toast.error("Failed to delete the message.");
+            toast.error("échec de suppression du message.");
             console.error("Failed to delete the message:", error);
         }
     };
@@ -125,7 +127,7 @@ const DashboardAdmin = () => {
                         </div>
                         <div className='m-auto'>
                             <div>{user.text}</div>
-                            <div className='border mb-3 text-center font-extrabold shadow'>{user.count}</div>
+                            <div className='border mb-3 text-center font-extrabold shadow text-3xl'>{user.count}</div>
                         </div>
                     </div>
                 ))}
@@ -180,7 +182,7 @@ const DashboardAdmin = () => {
                             <IconWithDropdown />
                         </div>
                         <div className='sm:w-full shadow-md'>
-                            <h2 className='text-center text-white font-bold bg-indigo-600 mb-3'>Enseignants actifs</h2>
+                            <h2 className='text-center text-white font-bold bg-indigo-600 mb-3'>Admins actifs</h2>
                             {adminUsers.map((admin, k) => (
                                 <div className="flex items-center justify-evenly mb-2" key={k}>
                                     <span className="border-md bg-gray-200 rounded-full">

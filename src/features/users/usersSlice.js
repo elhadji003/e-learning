@@ -11,4 +11,6 @@ const usersSlice = createSlice({
 });
 
 export const { setUsers } = usersSlice.actions;
+export const getUser = (state) => state?.auth?.currentUser;
+
 export default usersSlice.reducer;

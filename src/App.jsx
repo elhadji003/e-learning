@@ -11,6 +11,9 @@ import Home from './pages/home/Home';
 import Register from './pages/auth/Register';
 import ForgotPwd from './pages/auth/ForgotPwd';
 import ResetPwd from './pages/auth/ResetPwd';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 const App = () => {
   return (
@@ -30,6 +33,7 @@ const App = () => {
           </Route>
         </Route>
       </Routes>
+      <ToastContainer position='top-center' />
     </Router>
   );
 };

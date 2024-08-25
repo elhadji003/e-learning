@@ -10,7 +10,6 @@ const IconWithDropdown = () => {
     return <div>Loading...</div>;
   }
 
-  // Filtrer pour récupérer uniquement les administrateurs
   const adminUsers = users?.filter(user => user.role === 'enseignant') || [];
 
   const handleToggleDropdown = () => {

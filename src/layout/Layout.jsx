@@ -1,15 +1,12 @@
 // src/components/Layout.js
 import React, { useState } from 'react';
-import { ToastContainer } from "react-toastify";
 import "../styles/Home.css"
-import 'react-toastify/dist/ReactToastify.css';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOut, setCredentials } from '../features/auth/authSlice';
 import { useGetMeQuery } from '../features/auth/authAPI';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import { FaSmile } from 'react-icons/fa';
 import Loader from '../components/Loader';
 
 const Layout = () => {
@@ -44,7 +41,6 @@ const Layout = () => {
             <main className='flex-1 p-4'>
                 <Outlet />
             </main>
-            <ToastContainer position='top-center' icon={<FaSmile color='black' />} />
         </div>
     );
 };

@@ -12,10 +12,10 @@ export const usersAPI = createApi({
             query: (id) => `/users/${id}`,
         }),
         updateUser: builder.mutation({
-            query: ({ id, ...rest }) => ({
+            query: ({ id, ...body }) => ({
                 url: `/update/${id}`,
                 method: 'PUT',
-                body: rest,
+                body,
             }),
         }),
         deleteUser: builder.mutation({

@@ -9,6 +9,7 @@ import {
     GET_PROFILE_BY_ID_ROUTE,
     FORGOTPWD_ROUTE,
     RESETPWD_ROUTE,
+    UPDATE_PASSWORD_ROUTE,
 } from '../../routes/api/enpoint';
 
 const baseQuery = fetchBaseQuery({
@@ -80,6 +81,13 @@ export const authAPI = createApi({
                 body: { password },
             }),
         }),
+        updatePassword: builder.mutation({
+            query: ({ currentPassword, newPassword }) => ({
+                url: UPDATE_PASSWORD_ROUTE,
+                method: 'PUT',
+                body: { currentPassword, newPassword },
+            }),
+        }),
     }),
 });
 
@@ -92,4 +100,5 @@ export const {
     useGetProfileByIdQuery,
     useForgetPasswordMutation,
     useResetPasswordMutation,
+    useUpdatePasswordMutation, // New mutation hook for updating passwords
 } = authAPI;
