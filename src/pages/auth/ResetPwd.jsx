@@ -30,7 +30,7 @@ const ResetPwd = () => {
     return (
         <div className="flex flex-col sm:w-full justify-center items-center p-8">
             <div className="w-full max-w-md">
-                <h1 className='mb-4 font-extrabold text-3xl text-center'>Réinitialiser le mot de passe</h1>
+                <h1 className='mb-4 font-extrabold text-3xl text-center sm:text-nowrap'>Réinitialiser le mot de passe</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <input
                         type="password"
