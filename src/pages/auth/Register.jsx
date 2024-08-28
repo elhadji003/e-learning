@@ -67,6 +67,7 @@ const Register = () => {
                                 {...register('role', { required: 'Role is required' })}
                                 className="w-full p-2 border border-gray-300 rounded"
                             >
+                                <option value="admin">Administrateur</option>
                                 <option value="user">User</option>
                                 <option value="enseignant">Enseignant</option>
                             </select>

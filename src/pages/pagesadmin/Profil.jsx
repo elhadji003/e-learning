@@ -6,6 +6,7 @@ import ModalPwd from '../../components/ModalPwd';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Profil = () => {
     const { data: user } = useGetMeQuery();
@@ -21,9 +22,10 @@ const Profil = () => {
             await deleteMeAccount().unwrap();
             dispatch(logOut());
             navigate('/');
-            console.log('Compte supprimé');
+            toast.success("Votre compte a été supprimé")
         } catch (error) {
             console.error('Erreur lors de la suppression du compte', error);
+            toast.error("Erreur lors de la suppression du compte")
         }
     };
 

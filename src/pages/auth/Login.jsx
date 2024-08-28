@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import SubmitBtn from '../../components/SubmitBtn';
 import '../../styles/animation.css';
 import { FaBook, FaRegLightbulb, FaUserCog, FaUserGraduate } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
@@ -78,6 +78,7 @@ const Login = () => {
                     </p>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };
