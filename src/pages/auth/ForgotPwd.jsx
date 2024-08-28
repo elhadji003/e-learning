@@ -43,7 +43,7 @@ const ForgotPwd = () => {
                     </SubmitBtn>
                 </form>
             </div>
-            <ToastContainer />
+            <ToastContainer position='top-center' />
         </div>
     );
 };

@@ -2,7 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useUpdateUserMutation } from '../features/users/usersAPI';
 import { useGetMeQuery } from '../features/auth/authAPI';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const ProfileModal = ({ isOpen, onClose, user }) => {
     const { register, handleSubmit } = useForm({
@@ -134,6 +136,7 @@ const ProfileModal = ({ isOpen, onClose, user }) => {
                     </div>
                 </form>
             </div>
+            <ToastContainer position='top-center' />
         </div>
     );
 };

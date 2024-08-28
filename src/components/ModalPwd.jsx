@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useUpdatePasswordMutation } from "../features/auth/authAPI";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
-import { Checkbox } from "@headlessui/react";
 
 const ModalPwd = ({ isOpen, onClose }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -77,6 +77,7 @@ const ModalPwd = ({ isOpen, onClose }) => {
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </div>
     );
 };

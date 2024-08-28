@@ -78,7 +78,7 @@ const Login = () => {
                     </p>
                 </div>
             </div>
-            <ToastContainer />
+            <ToastContainer position='top-center' />
         </div>
     );
 };
