@@ -10,6 +10,7 @@ import {
     FORGOTPWD_ROUTE,
     RESETPWD_ROUTE,
     UPDATE_PASSWORD_ROUTE,
+    DELETE_ME_ACCOUNT_ROUTE,
 } from '../../routes/api/enpoint';
 
 const baseQuery = fetchBaseQuery({
@@ -45,6 +46,12 @@ export const authAPI = createApi({
             query: () => ({
                 url: GET_ME_ROUTE,
                 method: 'GET',
+            }),
+        }),
+        deleteMeAccount: builder.mutation({
+            query: () => ({
+                url: DELETE_ME_ACCOUNT_ROUTE,
+                method: 'DELETE',
             }),
         }),
         refreshToken: builder.mutation({
@@ -95,10 +102,11 @@ export const {
     useLoginMutation,
     useRegisterMutation,
     useGetMeQuery,
+    useDeleteMeAccountMutation,
     useRefreshTokenMutation,
     useUpdateProfileImageMutation,
     useGetProfileByIdQuery,
     useForgetPasswordMutation,
     useResetPasswordMutation,
-    useUpdatePasswordMutation, // New mutation hook for updating passwords
+    useUpdatePasswordMutation,
 } = authAPI;

@@ -50,7 +50,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
     return (
         <div
-            className={`fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            className={`fixed inset-0 bg-gray-800 bg-opacity-75 z-[1] transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
             aria-hidden="true"
             onClick={handleBackgroundClick}
         >

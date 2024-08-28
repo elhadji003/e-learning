@@ -1,32 +1,50 @@
 import React, { useState } from 'react';
-import { useGetMeQuery } from '../../features/auth/authAPI';
+import { useDeleteMeAccountMutation, useGetMeQuery } from '../../features/auth/authAPI';
 import Profile from '../../assets/user.png';
 import ProfileModal from '../../components/ProfileModal';
 import ModalPwd from '../../components/ModalPwd';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Profil = () => {
     const { data: user } = useGetMeQuery();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpenPwd, setIsModalOpenPwd] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deleteMeAccount] = useDeleteMeAccountMutation(); // Change to useDeleteMeAccountMutation
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleDeleteAccount = async () => {
+        try {
+            await deleteMeAccount().unwrap();
+            dispatch(logOut());
+            navigate('/');
+            console.log('Compte supprimé');
+        } catch (error) {
+            console.error('Erreur lors de la suppression du compte', error);
+        }
+    };
 
     return (
         <div className="max-w-4xl mx-auto mt-8 p-4">
-            <div className="relative bg-gradient-to-r from-indigo-500 to-purple-500 h-48 rounded-lg shadow-lg z-[-1]">
-                <img
-                    className="w-[150px] h-[150px] rounded-full border-4 border-white absolute top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover bg-white"
-                    src={user?.profileImageUrl || Profile}
-                    alt="Profile"
-                />
-
+            <div className="relative bg-gradient-to-r from-indigo-600 to-purple-500 h-48 rounded-lg shadow-lg z-[-1]">
+                <div className="absolute top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-1 bg-gradient-to-r from-indigo-600 to-purple-500">
+                    <img
+                        className="w-[150px] h-[150px] rounded-full bg-white object-cover"
+                        src={user?.profileImageUrl || Profile}
+                        alt="Profile"
+                    />
+                </div>
             </div>
-
             <div className="bg-white shadow-md rounded-lg mt-16 p-6 text-center text-nowrap">
                 <h2 className="text-2xl font-bold text-gray-800">{user?.username}</h2>
                 <p className="text-gray-600">{user?.email}</p>
                 <p className="text-gray-600">{user?.number}</p>
                 <p className="text-indigo-600 font-semibold mt-2">{user?.role}</p>
 
-                <div className="flex justify-center mt-6 space-x-4 sm:space-x-1 sm:scale-[0.9]">
+                <div className="flex justify-center mt-6 space-x-4 sm:space-x-1 z-[-1]">
                     <button
                         className="bg-indigo-500 text-white px-4 py-2 sm:text-[10px] rounded hover:bg-indigo-600 transition"
                         onClick={() => setIsModalOpen(true)}
@@ -42,7 +60,6 @@ const Profil = () => {
                 </div>
             </div>
 
-            {/* Informations Personnelles Complètes */}
             <div className="mt-8 bg-white shadow-md rounded-lg p-6">
                 <h3 className="text-xl font-semibold mb-4">Informations Personnelles</h3>
                 <div className="flex flex-wrap justify-between gap-4">
@@ -85,6 +102,15 @@ const Profil = () => {
                 </div>
             </div>
 
+            <div className="mt-8 text-center">
+                <button
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                    onClick={() => setIsDeleteModalOpen(true)}
+                >
+                    Supprimer mon compte
+                </button>
+            </div>
+
             {/* Modal pour modifier le profil */}
             <ProfileModal
                 isOpen={isModalOpen}
@@ -96,7 +122,29 @@ const Profil = () => {
                 isOpen={isModalOpenPwd}
                 onClose={() => setIsModalOpenPwd(false)}
             />
-
+            {/* Modal de confirmation de suppression */}
+            {isDeleteModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg">
+                        <h2 className="text-xl font-semibold mb-4">Confirmer la suppression</h2>
+                        <p className="mb-6">Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+                        <div className="flex justify-end space-x-4">
+                            <button
+                                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
+                                onClick={() => setIsDeleteModalOpen(false)}
+                            >
+                                Annuler
+                            </button>
+                            <button
+                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                                onClick={handleDeleteAccount}
+                            >
+                                Supprimer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

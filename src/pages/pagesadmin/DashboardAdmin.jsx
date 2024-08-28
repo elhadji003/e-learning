@@ -119,7 +119,7 @@ const DashboardAdmin = () => {
 
     return (
         <div>
-            <div className="flex flex-wrap gap-3 sm:flex-col">
+            <div className="flex flex-wrap gap-3">
                 {users.map((user, k) => (
                     <div className="flex-1 flex shadow-md" key={k}>
                         <div className="bg-indigo-600 text-white w-10 h-10 flex items-center justify-center m-4 rounded shadow-md">

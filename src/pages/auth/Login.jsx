@@ -52,6 +52,7 @@ const Login = () => {
                         {...register('email', { required: 'Email is required' })}
                         placeholder="Email"
                         className="w-full p-2 border border-gray-300 rounded"
+                        autoComplete='off'
                     />
                     {errors.email && <p className="text-red-500">{errors.email.message}</p>}
 
@@ -60,6 +61,7 @@ const Login = () => {
                         {...register('password', { required: 'Password is required' })}
                         placeholder="Password"
                         className="w-full p-2 border border-gray-300 rounded"
+                        autoComplete='off'
                     />
                     {errors.password && <p className="text-red-500">{errors.password.message}</p>}
 

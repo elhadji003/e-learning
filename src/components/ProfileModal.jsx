@@ -7,14 +7,14 @@ import { toast } from 'react-toastify';
 const ProfileModal = ({ isOpen, onClose, user }) => {
     const { register, handleSubmit } = useForm({
         defaultValues: {
-            username: user?.username || '',
-            email: user?.email || '',
-            number: user?.number || '',
-            role: user?.role || '',
-            address: user?.address || '',
-            ville: user?.ville || '',
-            pays: user?.pays || '',
-            code_postal: user?.code_postal || '',
+            username: user?.username || 'Non renseigné',
+            email: user?.email || 'Non renseigné',
+            number: user?.number || 'Non renseigné',
+            role: user?.role || 'Non renseigné',
+            address: user?.address || 'Non renseigné',
+            ville: user?.ville || 'Non renseigné',
+            pays: user?.pays || 'Non renseigné',
+            code_postal: user?.code_postal || 'Non renseigné',
         }
     });
 
@@ -46,7 +46,7 @@ const ProfileModal = ({ isOpen, onClose, user }) => {
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
                 <h2 className="text-2xl font-semibold mb-6 text-gray-900 text-center">Modifier le Profil</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-6 sm:grid-cols-1">
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-gray-700 font-medium">Prénom(s) et Nom(s):</label>

@@ -17,7 +17,7 @@ const IconWithDropdown = () => {
   };
 
   return (
-    <div className="relative p-2">
+    <div className="relative p-2s">
       <div className="rounded-full flex items-center cursor-pointer">
         {adminUsers && adminUsers.slice(0, 5).map((admin, index) => (
           <img
@@ -35,7 +35,7 @@ const IconWithDropdown = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute w-[18rem] sm:text-sm bg-white shadow-lg rounded-md p-2 z-10">
+        <div className="absolute w-[18rem] sm:text-sm bg-white shadow-lg rounded-md p-2">
           <div className="flex justify-between border-b pb-2 mb-2">
             <div className="left">
               <span className="font-bold">Tous</span>

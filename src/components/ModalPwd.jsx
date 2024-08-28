@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useUpdatePasswordMutation } from "../features/auth/authAPI";
 import { toast } from "react-toastify";
+import { useState } from "react";
+import { Checkbox } from "@headlessui/react";
 
 const ModalPwd = ({ isOpen, onClose }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [updatePassword] = useUpdatePasswordMutation();
+    const [showPwd, setShowPwd] = useState(false)
 
     const onSubmit = async (data) => {
         try {
@@ -30,7 +33,7 @@ const ModalPwd = ({ isOpen, onClose }) => {
                         <div>
                             <label className="block text-gray-700 font-medium">Mot de passe actuel:</label>
                             <input
-                                type="password"
+                                type={showPwd ? 'text' : 'password'}
                                 {...register('currentPassword', { required: "Mot de passe actuel requis" })}
                                 className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             />
@@ -39,12 +42,23 @@ const ModalPwd = ({ isOpen, onClose }) => {
                         <div>
                             <label className="block text-gray-700 font-medium">Nouveau mot de passe:</label>
                             <input
-                                type="password"
+                                type={showPwd ? 'text' : 'password'}
                                 {...register('newPassword', { required: "Nouveau mot de passe requis" })}
                                 className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             />
                             {errors.newPassword && <span className="text-red-500">{errors.newPassword.message}</span>}
                         </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <input
+                            type="checkbox"
+                            checked={showPwd}
+                            onChange={() => setShowPwd(!showPwd)}
+                            className="cursor-pointer"
+                        />
+                        <label className="block text-gray-700 font-medium cursor-pointer">
+                            Voir les mots de passe
+                        </label>
                     </div>
                     <div className="flex justify-end gap-4 mt-6">
                         <button

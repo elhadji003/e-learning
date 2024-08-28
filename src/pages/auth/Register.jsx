@@ -83,7 +83,7 @@ const Register = () => {
                                 <option value="première">Première</option>
                                 <option value="terminale">Terminale</option>
                             </select>
-                            {errors.niveau && <p className="text-red-500">{errors.niveau.message}</p>}
+                            {errors.level && <p className="text-red-500">{errors.level.message}</p>}
                         </div>
                     </div>
 
@@ -140,7 +140,6 @@ const Register = () => {
                     <p className='underline text-sm'>
                         En vous inscrivant, vous acceptez nos politiques d'actions.
                     </p>
-
                 </div>
             </div>
             <ToastContainer />
