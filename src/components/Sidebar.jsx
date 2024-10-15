@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaChartBar, FaUsers, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChartBar, FaUsers, FaChevronDown, FaChevronUp, FaPlusCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useGetMeQuery } from '../features/auth/authAPI';
 
@@ -27,12 +27,12 @@ const Sidebar = ({ isOpen, onClose }) => {
                 { name: 'Terminale', href: '/terminale' },
             ],
         },
+        { name: 'Ajouter cours', href: '/addCours', current: true, icon: <FaPlusCircle size={25} /> },
+
     ];
 
     const navigationUser = [
         { name: 'Tableau de Bord', href: '/dashboard-user', current: true, icon: <FaChartBar size={25} /> },
-        { name: 'Projets', href: '#', current: false },
-        { name: 'Cours', href: '/cours', current: true },
     ];
 
     const navigation = KnowUser();

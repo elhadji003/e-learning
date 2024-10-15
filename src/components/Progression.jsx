@@ -17,7 +17,6 @@ const Progression = () => {
                 { courseName: "Physique", progress: 80 },
             ],
         },
-        // Ajoute plus de données ici...
     ];
 
     return (

@@ -4,6 +4,7 @@ import usersSlice from '../features/users/usersSlice'
 import { authAPI } from '../features/auth/authAPI';
 import { usersAPI } from '../features/users/usersAPI';
 import { contactApi } from '../features/contact/contactAPI';
+import { coursAPI } from '../features/cours/coursAPI';
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         users: usersSlice,
         [usersAPI.reducerPath]: usersAPI.reducer,
         [contactApi.reducerPath]: contactApi.reducer,
+        [coursAPI.reducerPath]: coursAPI.reducer,
 
     },
     middleware: (getDefaultMiddleware) =>
@@ -19,6 +21,7 @@ export const store = configureStore({
             authAPI.middleware,
             usersAPI.middleware,
             contactApi.middleware,
+            coursAPI.middleware,
         ),
 });
 

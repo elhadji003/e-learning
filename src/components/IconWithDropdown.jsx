@@ -17,8 +17,8 @@ const IconWithDropdown = () => {
   };
 
   return (
-    <div className="relative p-2s">
-      <div className="rounded-full flex items-center cursor-pointer">
+    <div className="relative p-2">
+      <div className="rounded-full flex items-center cursor-pointer ml-2">
         {adminUsers && adminUsers.slice(0, 5).map((admin, index) => (
           <img
             key={index}
@@ -27,12 +27,12 @@ const IconWithDropdown = () => {
             className={`w-[41px] h-[41px] object-cover rounded-full ${index !== 0 && "-ml-3"} bg-gray-100`}
           />
         ))}
-        <div
+        <button
           onClick={handleToggleDropdown}
-          className="border rounded-full bg-white w-[41px] h-[41px] p-2 object-cover flex items-center justify-center cursor-pointer -ml-3"
+          className="border rounded-full bg-white w-[41px] h-[41px] p-2 object-cover flex items-center justify-center cursor-pointer"
         >
           {adminUsers.length || "0"}+
-        </div>
+        </button>
       </div>
       {isOpen && (
         <div className="absolute w-[18rem] sm:text-sm bg-white shadow-lg rounded-md p-2">

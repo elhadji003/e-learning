@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useDeleteMeAccountMutation, useGetMeQuery } from '../../features/auth/authAPI';
+import { useDeleteMeAccountMutation, useGetMeQuery, useUpdateProfileImageMutation } from '../../features/auth/authAPI';
 import Profile from '../../assets/user.png';
 import ProfileModal from '../../components/ProfileModal';
 import ModalPwd from '../../components/ModalPwd';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { FaPencilAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 const Profil = () => {
@@ -13,31 +14,57 @@ const Profil = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpenPwd, setIsModalOpenPwd] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [deleteMeAccount] = useDeleteMeAccountMutation(); // Change to useDeleteMeAccountMutation
+    const [updateProfileImageMutation] = useUpdateProfileImageMutation();
+    const [deleteMeAccount] = useDeleteMeAccountMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    // Local state for profile image
+    const [profileImageUrl, setProfileImageUrl] = useState(user?.profileImageUrl || Profile);
 
     const handleDeleteAccount = async () => {
         try {
             await deleteMeAccount().unwrap();
             dispatch(logOut());
             navigate('/');
-            toast.success("Votre compte a été supprimé")
+            console.log('Compte supprimé');
         } catch (error) {
             console.error('Erreur lors de la suppression du compte', error);
-            toast.error("Erreur lors de la suppression du compte")
+        }
+    };
+
+    const handleImageUpload = async (event) => {
+        const formData = new FormData();
+        formData.append('profileImage', event.target.files[0]);
+
+        try {
+            const response = await updateProfileImageMutation(formData).unwrap();
+
+            // Update local state with the new image URL
+            setProfileImageUrl(response.profileImageUrl);
+            toast.success('Image de profil mise à jour avec succès');
+        } catch (error) {
+            toast.error('Échec de la mise à jour de l\'image de profil');
         }
     };
 
     return (
         <div className="max-w-4xl mx-auto mt-8 p-4">
-            <div className="relative bg-gradient-to-r from-indigo-600 to-purple-500 h-48 rounded-lg shadow-lg z-[-1]">
+            <div className="relative bg-gradient-to-r from-indigo-600 to-purple-500 h-48 rounded-lg shadow-lg">
                 <div className="absolute top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-1 bg-gradient-to-r from-indigo-600 to-purple-500">
                     <img
                         className="w-[150px] h-[150px] rounded-full bg-white object-cover"
-                        src={user?.profileImageUrl || Profile}
+                        src={profileImageUrl}
                         alt="Profile"
                     />
+                    <label className="absolute bottom-0 right-0 bg-white p-1 rounded-full border border-gray-300 cursor-pointer">
+                        <FaPencilAlt className="text-indigo-600" />
+                        <input
+                            type='file'
+                            onChange={handleImageUpload}
+                            className="hidden"
+                        />
+                    </label>
                 </div>
             </div>
             <div className="bg-white shadow-md rounded-lg mt-16 p-6 text-center text-nowrap">

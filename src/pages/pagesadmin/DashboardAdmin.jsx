@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaBook, FaEnvelope, FaUserCheck, FaUsers, FaEye, FaEdit, FaTrash } from 'react-icons/fa';
+import Profile from "../../assets/user.png"
 import { TbMessage2Off } from "react-icons/tb";
 import Chart from '../../components/Chart';
 import Table from '../../components/Table';
@@ -83,7 +84,7 @@ const DashboardAdmin = () => {
         id: user.id,
         profile: (
             <div>
-                <img className={styleProfile} src={user.profileImageUrl} alt="" />
+                <img className={styleProfile} src={user.profileImageUrl || Profile} alt="" />
             </div>
         ),
         firstName: user.username,
@@ -178,7 +179,7 @@ const DashboardAdmin = () => {
                     </div>
                     <div className="w-3/12 sm:w-full">
                         <div className='sm:w-full shadow-md mb-3'>
-                            <h2 className='text-center text-white font-bold bg-indigo-600 mb-3'>Enseignants</h2>
+                            <h2 className='text-center text-white font-bold bg-indigo-600'>Enseignants</h2>
                             <IconWithDropdown />
                         </div>
                         <div className='sm:w-full shadow-md'>
@@ -186,7 +187,7 @@ const DashboardAdmin = () => {
                             {adminUsers.map((admin, k) => (
                                 <div className="flex items-center justify-evenly mb-2" key={k}>
                                     <span className="border-md bg-gray-200 rounded-full">
-                                        <img src={admin.profileImageUrl} alt="" className='w-8 h-8 rounded-full' />
+                                        <img src={admin.profileImageUrl || Profile} alt="" className='w-8 h-8 rounded-full' />
                                     </span>
                                     <span>{admin.username}</span>
                                     <span

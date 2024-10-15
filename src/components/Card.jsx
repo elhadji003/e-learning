@@ -25,7 +25,7 @@ const Card = ({ programType }) => {
             { title: "Espagnol", number: 39, content: "Langue espagnol", logo: "ESP" }
         ],
         Second: [
-            { title: "HG", number: 93, content: "Philisophie", logo: "HG" },
+            { title: "HG", number: 93, content: "Histoire et Géographie", logo: "HG" },
             { title: "FR", number: 102, content: "Français", logo: "FR" },
             { title: "Math", number: 56, content: "Mathématiques", logo: "MATH" },
             { title: "PC", number: 72, content: "Physique-Chimie", logo: "PC" },
@@ -61,7 +61,7 @@ const Card = ({ programType }) => {
     return (
         <div className="grid grid-cols-3 sm:grid-cols-1  md:grid-cols-2 gap-4">
             {programs[programType].map((program, index) => (
-                <div key={index} className="w-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow border-black">
+                <div key={index} className="w-[300px] sm:w-[255px] p-6 bg-white border border-gray-200 rounded-lg shadow border-black">
                     <div className='flex items-center justify-between'>
                         <div className='w-12 h-12 font-extrabold border border-black bg-black text-white flex items-center justify-center rounded-full text-sm'>
                             {program.logo}
